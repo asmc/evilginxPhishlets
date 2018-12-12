@@ -1,4 +1,5 @@
 name: 'google'
+<<<<<<< HEAD
 author: '@asmc'
 min_ver: '2.2.1'
 proxy_hosts:
